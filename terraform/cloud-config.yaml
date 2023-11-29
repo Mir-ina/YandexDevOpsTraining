@@ -1,7 +1,10 @@
 #cloud-config
+runcmd:
+- ip route add blackhole 8.8.8.8/32
+- systemctl enable --now check.service
 write_files:
 - content: |
-    # My new /etc/sysconfig/samba file
+    # My new /etc/yandex/unified_agent/conf.d/prometheus.yml file
     routes:
       - input:
           plugin: metrics_pull
@@ -13,3 +16,49 @@ write_files:
           channel_ref:
             name: cloud_monitoring
   path: /ua/prometheus.yml
+- content: |
+    #!/usr/bin/python3
+
+    import requests
+    import subprocess
+    import time
+
+    with requests.Session() as session:
+      response = session.get("http://localhost/ping")
+      if response.status_code == 500:
+        subprocess.run(["pkill", "bingo"])
+        subprocess.run(["/usr/bin/docker", "start", "bingo"])
+      else:
+        response = session.get("http://localhost/long_dummy")
+  owner: root:root
+  permissions: '0755'
+  path: /home/ubuntu/bin/checker.py
+- content: |
+    [Unit]
+    Description=Check Bingo
+    Requires=docker.service
+    After=docker.service
+
+    [Service]
+    Type=simple
+    ExecStart=/home/ubuntu/bin/checker.py
+    Restart=always
+    RestartSec=2
+
+    [Install]
+    WantedBy=multi-user.target
+  owner: root:root
+  permissions: '0644'
+  path: /etc/systemd/system/check.service
+- content: |
+    student_email: irina.edw.belova@yandex.ru
+    postgres_cluster:
+      hosts:
+      - address: postgresql-master.ru-central1.internal
+        port: 5432
+      user: irina
+      password: secret_password
+      db_name: bingo_v2
+      ssl_mode: disable
+      use_closest_node: false
+  path: /opt/bingo/config.yaml

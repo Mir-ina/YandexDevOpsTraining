@@ -1,0 +1,10 @@
+student_email: irina.edw.belova@yandex.ru
+postgres_cluster:
+  hosts:
+  - address: postgresql-master.ru-central1.internal
+    port: 5432
+  user: irina
+  password: secret_password
+  db_name: bingo_v2
+  ssl_mode: disable
+  use_closest_node: false

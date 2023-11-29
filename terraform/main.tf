@@ -4,74 +4,89 @@ terraform {
       source = "yandex-cloud/yandex"
     }
   }
-  required_version = ">= 0.13"
+  required_version = ">= 0.102"
+}
+
+variable folder_id {
+  type = string
+  default = "b1ggt3cforeavp7a3kce"
+}
+
+variable no_of_instance {
+  type = number
+  default = 2
+}
+
+variable zone {
+  type = string
+  default = "ru-central1-a"
 }
 
 provider "yandex" {
   service_account_key_file = "./tf_key.json"
-  folder_id                = local.folder_id
-  zone                     = "ru-central1-a"
+  folder_id                = var.folder_id
+  zone                     = var.zone
 }
 
-resource "yandex_vpc_network" "foo" {}
-
-resource "yandex_vpc_subnet" "foo" {
-  zone           = "ru-central1-a"
-  network_id     = yandex_vpc_network.foo.id
-  v4_cidr_blocks = ["10.5.0.0/24"]
+data "yandex_vpc_network" "database" {
+  name = "default"
 }
 
-resource "yandex_container_registry" "registry1" {
-  name = "registry1"
+data "yandex_vpc_subnet" "database" {
+  name = "default"
 }
 
-locals {
-  folder_id = "<INSERT YOUR FOLDER ID>"
-  service-accounts = toset([
-    "catgpt-sa",
-    "catgpt-ig-sa",
-  ])
-  catgpt-sa-roles = toset([
-    "container-registry.images.puller",
-    "monitoring.editor",
-  ])
-  catgpt-ig-sa-roles = toset([
-    "compute.editor",
-    "iam.serviceAccounts.user",
-    "load-balancer.admin",
-    "vpc.publicAdmin",
-    "vpc.user",
-  ])
-}
-resource "yandex_iam_service_account" "service-accounts" {
-  for_each = local.service-accounts
-  name     = "${local.folder_id}-${each.key}"
-}
-resource "yandex_resourcemanager_folder_iam_member" "catgpt-roles" {
-  for_each  = local.catgpt-sa-roles
-  folder_id = local.folder_id
-  member    = "serviceAccount:${yandex_iam_service_account.service-accounts["catgpt-sa"].id}"
-  role      = each.key
-}
-resource "yandex_resourcemanager_folder_iam_member" "catgpt-ig-roles" {
-  for_each  = local.catgpt-ig-sa-roles
-  folder_id = local.folder_id
-  member    = "serviceAccount:${yandex_iam_service_account.service-accounts["catgpt-ig-sa"].id}"
-  role      = each.key
+resource "yandex_container_registry" "bingo" {
+  folder_id = var.folder_id
+  name = "bingo-1"
 }
 
 data "yandex_compute_image" "coi" {
   family = "container-optimized-image"
 }
 
-resource "yandex_compute_instance_group" "catgpt" {
+locals {
+  service-accounts = toset([
+    "bingo-sa",
+    "bingo-ig-sa",
+  ])
+  bingo-sa-roles = toset([
+    "container-registry.images.puller",
+    "monitoring.editor"
+  ])
+  bingo-ig-sa-roles = toset([
+    "compute.editor",
+    "iam.serviceAccounts.user",
+    "load-balancer.admin",
+    "vpc.publicAdmin",
+    "vpc.user"
+  ])
+}
+resource "yandex_iam_service_account" "service-accounts" {
+  for_each = local.service-accounts
+  name     = "${var.folder_id}-${each.key}"
+}
+resource "yandex_resourcemanager_folder_iam_member" "bingo-roles" {
+  for_each  = local.bingo-sa-roles
+  folder_id = var.folder_id
+  member    = "serviceAccount:${yandex_iam_service_account.service-accounts["bingo-sa"].id}"
+  role      = each.key
+}
+resource "yandex_resourcemanager_folder_iam_member" "bingo-ig-roles" {
+  for_each  = local.bingo-ig-sa-roles
+  folder_id = var.folder_id
+  member    = "serviceAccount:${yandex_iam_service_account.service-accounts["bingo-ig-sa"].id}"
+  role      = each.key
+}
+
+resource "yandex_compute_instance_group" "bingo2" {
   depends_on = [
-    yandex_resourcemanager_folder_iam_member.catgpt-ig-roles
+    yandex_resourcemanager_folder_iam_member.bingo-ig-roles
   ]
-  name               = "catgpt"
-  service_account_id = yandex_iam_service_account.service-accounts["catgpt-ig-sa"].id
+  name               = "bingo"
+  service_account_id = yandex_iam_service_account.service-accounts["bingo-ig-sa"].id
   allocation_policy {
-    zones = ["ru-central1-a"]
+    zones = [var.zone]
   }
   deploy_policy {
     max_unavailable = 1
@@ -81,23 +96,23 @@ resource "yandex_compute_instance_group" "catgpt" {
   }
   scale_policy {
     fixed_scale {
-      size = 2
+      size = var.no_of_instance
     }
   }
   instance_template {
     platform_id        = "standard-v2"
-    service_account_id = yandex_iam_service_account.service-accounts["catgpt-sa"].id
+    service_account_id = yandex_iam_service_account.service-accounts["bingo-sa"].id
     resources {
       cores         = 2
-      memory        = 1
-      core_fraction = 5
+      memory        = 2
+      core_fraction = 100
     }
     scheduling_policy {
       preemptible = true
     }
     network_interface {
-      network_id = yandex_vpc_network.foo.id
-      subnet_ids = ["${yandex_vpc_subnet.foo.id}"]
+      network_id = data.yandex_vpc_network.database.id
+      subnet_ids = ["${data.yandex_vpc_subnet.database.id}"]
       nat        = true
     }
     boot_disk {
@@ -111,8 +126,8 @@ resource "yandex_compute_instance_group" "catgpt" {
       docker-compose = templatefile(
         "${path.module}/docker-compose.yaml",
         {
-          folder_id   = "${local.folder_id}",
-          registry_id = "${yandex_container_registry.registry1.id}",
+          folder_id   = "${var.folder_id}",
+          registry_id = "${yandex_container_registry.bingo.id}",
         }
       )
       user-data = file("${path.module}/cloud-config.yaml")
@@ -120,29 +135,38 @@ resource "yandex_compute_instance_group" "catgpt" {
     }
   }
   load_balancer {
-    target_group_name = "catgpt"
+    target_group_name = "bingo"
   }
 }
 
-resource "yandex_lb_network_load_balancer" "lb-catgpt" {
-  name = "catgpt"
+resource "yandex_lb_network_load_balancer" "lb-bingo" {
+  name = "bingo"
 
   listener {
-    name        = "cat-listener"
+    name        = "http-listener"
     port        = 80
-    target_port = 8080
+    target_port = 80
+    external_address_spec {
+      ip_version = "ipv4"
+    }
+  }
+
+  listener {
+    name        = "https-listener"
+    port        = 443
+    target_port = 443
     external_address_spec {
       ip_version = "ipv4"
     }
   }
 
   attached_target_group {
-    target_group_id = yandex_compute_instance_group.catgpt.load_balancer[0].target_group_id
+    target_group_id = yandex_compute_instance_group.bingo2.load_balancer[0].target_group_id
 
     healthcheck {
       name = "http"
       http_options {
-        port = 8080
+        port = 80
         path = "/ping"
       }
     }

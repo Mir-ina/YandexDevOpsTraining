@@ -1,0 +1,11 @@
+FROM nginx:latest
+
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt \
+  -subj "/C=RU/ST=Ural/L=Yekaterinburg/O=DevOpsLTD/CN=Irina/emailAddress=irina.edw.belova\@yandex.ru"
+RUN openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+RUN mkdir /run/cache
+COPY config/nginx.conf /etc/nginx/conf.d/default.conf
+
+# build run:
+# docker build -t cr.yandex/$registry_id/nginx -f dockerfile-nginx .
+# docker push  cr.yandex/$registry_id/nginx

@@ -1,0 +1,84 @@
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[9966]: panic: we're all gonna die
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[9966]: goroutine 65549 [running]:
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[9966]: bingo/internal/core.(*Core).runPanic.func1()
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[9966]:         /build/internal/core/operation.go:77 +0x31
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[9966]: created by bingo/internal/core.(*Core).runPanic in goroutine 65546
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[9966]:         /build/internal/core/operation.go:75 +0x85
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar systemd[1]: bingo.service: Main process exited, code=exited, status=2/INVALIDARGUMENT
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar systemd[1]: bingo.service: Failed with result 'exit-code'.
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar systemd[1]: bingo.service: Scheduled restart job, restart counter is at 7.
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar systemd[1]: Stopped Check Bingo.
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar systemd[1]: Started Check Bingo.
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: Congratulations.
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: You were able to figure out why
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: the application is slow to start and fix it.
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: Here's a secret code that confirms that you did it.
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: --------------------------------------------------
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: code:         google_dns_is_not_http
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: --------------------------------------------------
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]:     
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: My congratulations.
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: You were able to start the server.
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: Here's a secret code that confirms that you did it.
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: --------------------------------------------------
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: code:         yoohoo_server_launched
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]: --------------------------------------------------
+Nov 29 19:07:01 cl16dpfk3kpni5iedgs4-ypar bingo[10741]:     
+Nov 29 19:13:23 cl16dpfk3kpni5iedgs4-ypar systemd[1]: bingo.service: Main process exited, code=killed, status=9/KILL
+Nov 29 19:13:23 cl16dpfk3kpni5iedgs4-ypar systemd[1]: bingo.service: Failed with result 'signal'.
+Nov 29 19:13:23 cl16dpfk3kpni5iedgs4-ypar systemd[1]: bingo.service: Scheduled restart job, restart counter is at 8.
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: Congratulations.
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: You were able to figure out why
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: the application is slow to start and fix it.
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: Here's a secret code that confirms that you did it.
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: --------------------------------------------------
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: code:         google_dns_is_not_http
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: --------------------------------------------------
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]:     
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: My congratulations.
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: You were able to start the server.
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: Here's a secret code that confirms that you did it.
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: --------------------------------------------------
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: code:         yoohoo_server_launched
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]: --------------------------------------------------
+Nov 29 19:13:27 cl16dpfk3kpni5iedgs4-ypar bingo[10962]:     
+Nov 29 19:13:23 cl16dpfk3kpni5iedgs4-ypar systemd[1]: Stopped Check Bingo.
+Nov 29 19:13:23 cl16dpfk3kpni5iedgs4-ypar systemd[1]: Started Check Bingo.
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar systemd[1]: bingo.service: Succeeded.
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar systemd[1]: bingo.service: Scheduled restart job, restart counter is at 9.
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar systemd[1]: Stopped Check Bingo.
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar systemd[1]: Started Check Bingo.
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: Congratulations.
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: You were able to figure out why
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: the application is slow to start and fix it.
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: Here's a secret code that confirms that you did it.
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: --------------------------------------------------
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: code:         google_dns_is_not_http
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: --------------------------------------------------
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]:     
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: My congratulations.
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: You were able to start the server.
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: Here's a secret code that confirms that you did it.
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: --------------------------------------------------
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: code:         yoohoo_server_launched
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]: --------------------------------------------------
+Nov 29 19:15:24 cl16dpfk3kpni5iedgs4-ypar bingo[11039]:     
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar systemd[1]: bingo.service: Succeeded.
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar systemd[1]: bingo.service: Scheduled restart job, restart counter is at 10.
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar systemd[1]: Stopped Check Bingo.
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar systemd[1]: Started Check Bingo.
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: Congratulations.
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: You were able to figure out why
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: the application is slow to start and fix it.
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: Here's a secret code that confirms that you did it.
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: --------------------------------------------------
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: code:         google_dns_is_not_http
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: --------------------------------------------------
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]:     
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: My congratulations.
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: You were able to start the server.
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: Here's a secret code that confirms that you did it.
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: --------------------------------------------------
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: code:         yoohoo_server_launched
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]: --------------------------------------------------
+Nov 29 19:16:24 cl16dpfk3kpni5iedgs4-ypar bingo[11104]:     

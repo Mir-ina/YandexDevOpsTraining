@@ -1,0 +1,17 @@
+FROM alpine
+
+RUN mkdir -p /opt/bingo
+RUN mkdir -p /opt/bongo/logs/ab8c751b93
+#RUN touch /opt/bongo/logs/ab8c751b93/main.log
+RUN ln -s /dev/null /opt/bongo/logs/ab8c751b93/main.log
+RUN adduser -u 1000 -s /bin/sh -D ubuntu
+RUN chown -R ubuntu /opt/bingo /opt/bongo
+COPY bin/bingo /
+
+USER 1000
+COPY config/bingo.yaml /opt/bingo/config.yaml
+CMD ["/bingo", "run_server"]
+
+# build run:
+# docker build -t cr.yandex/$registry_id/bingo -f dockerfile-bingo .
+# docker push  cr.yandex/$registry_id/bingo
