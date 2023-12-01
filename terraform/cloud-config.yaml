@@ -1,7 +1,7 @@
 #cloud-config
 runcmd:
-- ip route add blackhole 8.8.8.8/32
 - systemctl enable --now check.service
+- iptables -I DOCKER-USER -d 8.8.8.8 -j REJECT
 write_files:
 - content: |
     # My new /etc/yandex/unified_agent/conf.d/prometheus.yml file
@@ -32,21 +32,13 @@ write_files:
         response = session.get("http://localhost:10002/ping")
         if response.status_code == 500:
           subprocess.run(["/usr/bin/docker", "restart", "bingo2"])
-
-        response = session.get("http://localhost:10003/ping")
-        if response.status_code == 500:
-          subprocess.run(["/usr/bin/docker", "restart", "bingo3"])
-
-        response = session.get("http://localhost:10004/ping")
-        if response.status_code == 500:
-          subprocess.run(["/usr/bin/docker", "restart", "bingo4"])
       except Exception:
         pass
   owner: ubuntu:ubuntu
   permissions: '0755'
   path: /home/ubuntu/bin/checker.py
 - content: |
-    * * * * * ubuntu docker start bingo1 bingo2 bingo3 bingo4
+    * * * * * ubuntu docker start bingo1 bingo2
   path: /etc/cron.d/bingo-restart
 - content: |
     [Unit]

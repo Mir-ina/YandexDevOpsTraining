@@ -18,24 +18,6 @@ services:
       - bingo2
     ports:
       - "10002:27958"
-  bingo3:
-    container_name: bingo3
-    image: "cr.yandex/${registry_id}/bingo"
-    restart: always
-    tty: true
-    networks:
-      - bingo3
-    ports:
-      - "10003:27958"
-  bingo4:
-    container_name: bingo4
-    image: "cr.yandex/${registry_id}/bingo"
-    restart: always
-    tty: true
-    networks:
-      - bingo4
-    ports:
-      - "10004:27958"
   nginx:
     container_name: nginx
     image: "cr.yandex/${registry_id}/nginx"
@@ -43,8 +25,6 @@ services:
     networks:
       - bingo1
       - bingo2
-      - bingo3
-      - bingo4
     ports:
       - "80:80"
       - "443:443"
@@ -54,7 +34,3 @@ networks:
     name: bingo1
   bingo2:
     name: bingo2
-  bingo3:
-    name: bingo3
-  bingo4:
-    name: bingo4
