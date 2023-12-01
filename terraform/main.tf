@@ -14,7 +14,7 @@ variable folder_id {
 
 variable no_of_instance {
   type = number
-  default = 2
+  default = 1
 }
 
 variable zone {
@@ -55,6 +55,7 @@ locals {
     "monitoring.editor"
   ])
   bingo-ig-sa-roles = toset([
+    "container-registry.images.puller",
     "compute.editor",
     "iam.serviceAccounts.user",
     "load-balancer.admin",
@@ -101,7 +102,7 @@ resource "yandex_compute_instance_group" "bingo2" {
   }
   instance_template {
     platform_id        = "standard-v2"
-    service_account_id = yandex_iam_service_account.service-accounts["bingo-sa"].id
+    service_account_id = yandex_iam_service_account.service-accounts["bingo-ig-sa"].id
     resources {
       cores         = 2
       memory        = 2

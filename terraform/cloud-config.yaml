@@ -24,15 +24,30 @@ write_files:
     import time
 
     with requests.Session() as session:
-      response = session.get("http://localhost/ping")
-      if response.status_code == 500:
-        subprocess.run(["pkill", "bingo"])
-        subprocess.run(["/usr/bin/docker", "start", "bingo"])
-      else:
-        response = session.get("http://localhost/long_dummy")
-  owner: root:root
+      try:
+        response = session.get("http://localhost:10001/ping")
+        if response.status_code == 500:
+          subprocess.run(["/usr/bin/docker", "restart", "bingo1"])
+
+        response = session.get("http://localhost:10002/ping")
+        if response.status_code == 500:
+          subprocess.run(["/usr/bin/docker", "restart", "bingo2"])
+
+        response = session.get("http://localhost:10003/ping")
+        if response.status_code == 500:
+          subprocess.run(["/usr/bin/docker", "restart", "bingo3"])
+
+        response = session.get("http://localhost:10004/ping")
+        if response.status_code == 500:
+          subprocess.run(["/usr/bin/docker", "restart", "bingo4"])
+      except Exception:
+        pass
+  owner: ubuntu:ubuntu
   permissions: '0755'
   path: /home/ubuntu/bin/checker.py
+- content: |
+    * * * * * ubuntu docker start bingo1 bingo2 bingo3 bingo4
+  path: /etc/cron.d/bingo-restart
 - content: |
     [Unit]
     Description=Check Bingo
