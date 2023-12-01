@@ -2,7 +2,6 @@ FROM alpine
 
 RUN mkdir -p /opt/bingo
 RUN mkdir -p /opt/bongo/logs/ab8c751b93
-#RUN touch /opt/bongo/logs/ab8c751b93/main.log
 RUN ln -s /dev/null /opt/bongo/logs/ab8c751b93/main.log
 RUN adduser -u 1000 -s /bin/sh -D ubuntu
 RUN chown -R ubuntu /opt/bingo /opt/bongo
